@@ -12,7 +12,7 @@
 			"functions/general.php"
 		],
 		"psr-0": {
-			"PhalconDocs\\": "Mctekk/phalcon-word-keys-templates/src/"
+			"PhalconDocs\\": "Mctekk/PhalconDocs/src/"
 		}
 	},
     "require": {
