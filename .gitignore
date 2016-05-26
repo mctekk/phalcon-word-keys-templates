@@ -1,0 +1,9 @@
+._*
+.DS_Store
+public/archivos/
+.composer/
+.ssh/
+.viminfo
+.bash_history
+.env*
+.idea
