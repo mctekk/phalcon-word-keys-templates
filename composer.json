@@ -14,6 +14,6 @@
 	},
     "require": {
         "php": ">=5.5.0",
-		"phpoffice/phpword": "dev-master"
+	"phpoffice/phpword": "v0.12.1"
     }
 }
