@@ -85,6 +85,7 @@ class TemplateProcessor extends Injectable
                          */
                         foreach ($next as $ke => $v) {
                             $ke = $key . '.' . $ke;
+                            $v = htmlspecialchars($v);
                             $templateProcessor->setValue($ke, $v);
                         }
                         /**
@@ -101,6 +102,7 @@ class TemplateProcessor extends Injectable
                     continue;
                 }
             } else {
+                $value = htmlspecialchars($value);
                 $templateProcessor->setValue($key, $value);
             }
         }
@@ -110,6 +112,7 @@ class TemplateProcessor extends Injectable
          */
         if (count($this->extras)) {
             foreach ($this->extras as $key => $value) {
+                $value = htmlspecialchars($value);
                 /**
                  * set value extras
                  */
