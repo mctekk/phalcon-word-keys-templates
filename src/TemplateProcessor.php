@@ -59,6 +59,17 @@ class TemplateProcessor extends Injectable
          */
         $templateProcessor = new TProcessor($this->templatePath);
 
+        $variables = $templateProcessor->getVariables();
+        $leyendas = [];
+        foreach ($variables as $value) {
+            if (strpos($value, ",")) {
+                $crop = explode(",", $value);
+                $leyendas[$crop[0]] = $crop[1];
+                // Eliminamos la leyenda con un valor vacio
+                $templateProcessor->setValue($value, '');
+            }
+        }
+
         /**
          * get models values formated
          * @var array
@@ -77,7 +88,11 @@ class TemplateProcessor extends Injectable
                     /**
                      * Clone rows based on the primary key of the relationship model
                      */
-                    $templateProcessor->cloneRow($key, count($value));
+                    if (array_key_exists($key, $leyendas)) {
+                        $templateProcessor->cloneRow($leyendas[$key], count($value));
+                    } else {
+                        $templateProcessor->cloneRow($key, count($value));
+                    }
 
                     foreach ($value as $k => $next) {
                         /**
@@ -86,12 +101,20 @@ class TemplateProcessor extends Injectable
                         foreach ($next as $ke => $v) {
                             $ke = $key . '.' . $ke;
                             $v = htmlspecialchars($v);
+                            $rowK = str_replace('#' . ($k + 1), "", $ke);
                             $templateProcessor->setValue($ke, $v);
+                            if (array_key_exists($rowK, $leyendas)) {
+                                $templateProcessor->setValue($leyendas[$rowK] . '#' . ($k + 1), $v);
+                            }
                         }
                         /**
                          * remove unnecessary keys
                          */
-                        $r = $key . '#' . ($k + 1);
+                        if (array_key_exists($key, $leyendas)) {
+                            $r = $leyendas[$key] . '#' . ($k + 1);
+                        } else {
+                            $r = $key . '#' . ($k + 1);
+                        }
                         $templateProcessor->setValue($r, '');
                     }
                 } catch (\Exception $e) {
@@ -103,7 +126,11 @@ class TemplateProcessor extends Injectable
                 }
             } else {
                 $value = htmlspecialchars($value);
-                $templateProcessor->setValue($key, $value);
+                if (array_key_exists($key, $leyendas)) {
+                    $templateProcessor->setValue($leyendas[$key], $value);
+                } else {
+                    $templateProcessor->setValue($key, $value);
+                }
             }
         }
 
