@@ -30,7 +30,7 @@ TemplateProcessor
 
 ```php
 <?php
-	$model = YorModels::find(1);
+	$model = YorModels::findFirst(1);
 	$path = '/path/to/you/template/';
 	$docs = new PhalconDocs\TemplateProcessor($path . "file.docx", $model);
     $docs->saveAs($path . "newfile.docx");
