@@ -13,7 +13,6 @@
 		}
 	},
     "require": {
-        "php": ">=5.5.0",
-	"phpoffice/phpword": "v0.12.1"
+        "php": ">=5.5.0"
     }
 }
