@@ -32,6 +32,12 @@ class TemplateProcessor extends Injectable
     public $extras;
 
     /**
+     * Object
+     * @var PhpOffice\PhpWord\TemplateProcessor
+     */
+    public $templateProcessor;
+
+    /**
      * [__construct description]
      * @param string             $templatePath Path template file
      * @param Phalcon\Mvc\Model  $models       Phalcon models to map
@@ -39,6 +45,11 @@ class TemplateProcessor extends Injectable
      */
     public function __construct($templatePath, Model $models, array $extras = [])
     {
+        /**
+         * new instance of PhpOffice\PhpWord\TemplateProcessor
+         * @var PhpOffice\PhpWord\TemplateProcessor
+         */
+        $this->templateProcessor = new TProcessor($this->templatePath);
         $this->templatePath = $templatePath;
         $this->models = $models;
         $this->extras = $extras;
@@ -53,12 +64,8 @@ class TemplateProcessor extends Injectable
     {
         $path = is_null($path) ? 'unknown.docx' : $path;
 
-        /**
-         * new instance of PhpOffice\PhpWord\TemplateProcessor
-         * @var PhpOffice\PhpWord\TemplateProcessor
-         */
-        $templateProcessor = new TProcessor($this->templatePath);
-
+        $templateProcessor = $this->templateProcessor;
+        
         $variables = $templateProcessor->getVariables();
         $leyendas = [];
         foreach ($variables as $value) {
