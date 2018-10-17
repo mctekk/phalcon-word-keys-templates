@@ -45,12 +45,12 @@ class TemplateProcessor extends Injectable
      */
     public function __construct($templatePath, Model $models, array $extras = [])
     {
+        $this->templatePath = $templatePath;
         /**
          * new instance of PhpOffice\PhpWord\TemplateProcessor
          * @var PhpOffice\PhpWord\TemplateProcessor
          */
         $this->templateProcessor = new TProcessor($this->templatePath);
-        $this->templatePath = $templatePath;
         $this->models = $models;
         $this->extras = $extras;
     }
