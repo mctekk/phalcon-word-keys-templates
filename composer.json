@@ -1,5 +1,5 @@
 {
-	"name": "mctekk/PhalconDocs",
+	"name": "mctekk/phalcondocs",
 	"description": "Library for fast handling of template with phpword.",
 	"keywords": ["phalcon","keys","phpword"],
 	"license": "MIT",
